@@ -5,4 +5,4 @@
   )
 )
 
-xcopy /E /Y "C:\Users\hisho\source\repos\MyLocalServiceHost\bin\Debug" "E:\HomeDeploy\MyLocalService\bin"
+xcopy /E /Y "F:\CSharpProjects\MyLocalService\MyLocalServiceHost\bin\Debug\" "F:\HomeDeploy\MyLocalService\bin"

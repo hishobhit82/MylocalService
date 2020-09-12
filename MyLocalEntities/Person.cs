@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace MyLocalEntities
 {
     public class Person
     {
-        public string Name  { get; set; }
+        public string Name { get; set; }
         public int Age { get; set; }
         public string City { get; set; }
 
@@ -14,7 +15,7 @@ namespace MyLocalEntities
         {
             var arrQuals = line.Split('|');
             return arrQuals.Select(q => new Quality { QualityName = q.Split('~')[0], QualityDesc = q.Split('~')[1] }).ToList();
-        }        
+        }
 
         public override string ToString()
         {

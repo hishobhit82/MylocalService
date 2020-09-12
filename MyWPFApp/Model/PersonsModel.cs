@@ -16,67 +16,67 @@ using System.Windows;
 
 namespace MyWPFApp.Model
 {
-    public class PersonsModel : INotifyPropertyChanged
-    {
-        public PersonsModel(MainViewModel parent)
-        {
-            MainViewModel = parent;
-            GetPersonsUri = ConfigurationManager.AppSettings["GetPersonsUri"];
-            NumberOfPersonsToFetch = Convert.ToInt32(ConfigurationManager.AppSettings["DefaultPersons"]);            
-        }
+	public class PersonsModel : INotifyPropertyChanged
+	{
+		public PersonsModel(MainViewModel parent)
+		{
+			MainViewModel = parent;
+			GetPersonsUri = ConfigurationManager.AppSettings["GetPersonsUri"];
+			NumberOfPersonsToFetch = Convert.ToInt32(ConfigurationManager.AppSettings["DefaultPersons"]);
+		}
 
-        public MainViewModel MainViewModel { get; set; }
+		public MainViewModel MainViewModel { get; set; }
 
-        private List<Person> _persons;
-        public List<Person> Persons
-        {
-            get { return _persons; }
-            set 
-            { 
-                _persons = value;
-                OnPropertyChanged("Persons");
-            }
-        }
-        
-        public string GetPersonsUri { get; set; }
+		private List<Person> _persons;
+		public List<Person> Persons
+		{
+			get { return _persons; }
+			set
+			{
+				_persons = value;
+				OnPropertyChanged("Persons");
+			}
+		}
 
-        private int _numbersOfPersonsToFetch;
-        public int NumberOfPersonsToFetch 
-        {
-            get
-            {
-                return _numbersOfPersonsToFetch;
-            }
-            set
-            {
-                _numbersOfPersonsToFetch = value;
-                GetListOfPersons();
-            }
-        }
+		public string GetPersonsUri { get; set; }
 
-        private async void GetListOfPersons()
-        {
-            MainViewModel.ProgressBarInProgress = Visibility.Visible;
+		private int _numbersOfPersonsToFetch;
+		public int NumberOfPersonsToFetch
+		{
+			get
+			{
+				return _numbersOfPersonsToFetch;
+			}
+			set
+			{
+				_numbersOfPersonsToFetch = value;
+				GetListOfPersons();
+			}
+		}
 
-            await Task.Run(()=>
-            {
-                MainViewModel.StatusMessage = "Getting Persons...";
-                var responseStream = HttpWebClient.SendRequest($"{GetPersonsUri}{NumberOfPersonsToFetch}", "GET", null, null);
-                var ser = new DataContractJsonSerializer(typeof(ServiceResult<Person>));
-                MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(responseStream));
-                var result = ser.ReadObject(ms) as ServiceResult<Person>;
-                Persons = result.Result.ToList();
-                MainViewModel.ProgressBarInProgress = Visibility.Hidden;
-                MainViewModel.StatusMessage = "Finished getting list of persons.";
-            });
-                                    
-        }
+		private async void GetListOfPersons()
+		{
+			MainViewModel.ProgressBarInProgress = Visibility.Visible;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+			await Task.Run(() =>
+			{
+				MainViewModel.StatusMessage = "Getting Persons...";
+				var responseStream = HttpWebClient.SendRequest($"{GetPersonsUri}{NumberOfPersonsToFetch}", "GET", null, null);
+				var ser = new DataContractJsonSerializer(typeof(ServiceResult<Person>));
+				MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(responseStream));
+				var result = ser.ReadObject(ms) as ServiceResult<Person>;
+				Persons = result.Result.ToList();
+				MainViewModel.ProgressBarInProgress = Visibility.Hidden;
+				MainViewModel.StatusMessage = "Finished getting list of persons.";
+			});
 
-        protected void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
-    }
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		protected void OnPropertyChanged(string property)
+		{
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+		}
+	}
 }

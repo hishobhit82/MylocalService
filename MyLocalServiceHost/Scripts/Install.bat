@@ -3,7 +3,7 @@ sc query "MyLocalService" | findstr "FAILED"
 
 if %ERRORLEVEL%==0 (
 	@ECHO Installing Service...
-	"C:\Windows\Microsoft.NET\Framework\v4.0.30319\InstallUtil.exe" -i "E:\HomeDeploy\MyLocalService\bin\MyLocalServiceHost.exe"
+	"C:\Windows\Microsoft.NET\Framework\v4.0.30319\InstallUtil.exe" -i "F:\HomeDeploy\MyLocalService\bin\MyLocalServiceHost.exe"
 	@ECHO Install Done.
 )
 

@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace MyLocalServiceHost
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            ServiceBase serviceToRun = new LocalServiceHost();
-            ServiceBase.Run(serviceToRun);
-        }
-    }
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			ServiceBase serviceToRun = new LocalServiceHost();
+			ServiceBase.Run(serviceToRun);
+		}
+	}
 }

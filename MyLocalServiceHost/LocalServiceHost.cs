@@ -6,31 +6,31 @@ using MyLocalService;
 
 namespace MyLocalServiceHost
 {
-    partial class LocalServiceHost : ServiceBase
-    {
-        ServiceHost svcHost = null;
-        public LocalServiceHost()
-        {
-            InitializeComponent();
-        }
+	partial class LocalServiceHost : ServiceBase
+	{
+		ServiceHost svcHost = null;
+		public LocalServiceHost()
+		{
+			InitializeComponent();
+		}
 
-        protected override void OnStart(string[] args)
-        {            
-            string baseAddress = "http://" + Environment.MachineName + ":8080/Service";
-            svcHost = new ServiceHost(typeof(MyLocalService.MyLocalService), new Uri(baseAddress));
-            WebHttpBinding webBinding = new WebHttpBinding();
-            webBinding.ContentTypeMapper = new RawMapper();
-            svcHost.AddServiceEndpoint(typeof(IMyLocalService), webBinding, "api").Behaviors.Add(new NewtonsoftJsonBehavior());
-            svcHost.Open();
-        }
+		protected override void OnStart(string[] args)
+		{
+			string baseAddress = "http://" + Environment.MachineName + ":8080/Service";
+			svcHost = new ServiceHost(typeof(MyLocalService.MyLocalService), new Uri(baseAddress));
+			WebHttpBinding webBinding = new WebHttpBinding();
+			webBinding.ContentTypeMapper = new RawMapper();
+			svcHost.AddServiceEndpoint(typeof(IMyLocalService), webBinding, "api").Behaviors.Add(new NewtonsoftJsonBehavior());
+			svcHost.Open();
+		}
 
-        protected override void OnStop()
-        {
-           if(svcHost != null)
-            {
-                svcHost.Close();
-                svcHost = null;
-            }
-        }
-    }
+		protected override void OnStop()
+		{
+			if (svcHost != null)
+			{
+				svcHost.Close();
+				svcHost = null;
+			}
+		}
+	}
 }
