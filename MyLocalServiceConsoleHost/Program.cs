@@ -14,7 +14,7 @@ namespace MyLocalServiceConsoleHost
 	{
 		static void Main(string[] args)
 		{
-			var baseAddress = "http://" + Environment.MachineName + ":8081/Service";
+			var baseAddress = "http://" + Environment.MachineName + ":8081/MyLocalService";
 			var host = new ServiceHost(typeof(MyLocalService.MyLocalService), new Uri(baseAddress));
 
 			var webBinding = new WebHttpBinding();
@@ -29,7 +29,7 @@ namespace MyLocalServiceConsoleHost
 
 			Console.WriteLine("Now using the client formatter");
 
-			var x = HttpWebClient.SendRequest("http://localhost:8080/Service/api/GetData?value=5", "GET", null, null);
+			var x = HttpWebClient.SendRequest("http://localhost:8081/MyLocalService/api/GetData?value=5", "GET", null, null);
 
 
 

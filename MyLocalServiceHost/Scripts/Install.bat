@@ -8,6 +8,6 @@ if %ERRORLEVEL%==0 (
 )
 
 @ECHO Registering url with the port
-netsh http add urlacl url=http://+:8080/Service user=DESKTOP\hi.shobhit76@gmail.com
+netsh http add urlacl url=http://+:8081/MyLocalService user=DESKTOP\hisho
 @ECHO url reservation complete
 @pause

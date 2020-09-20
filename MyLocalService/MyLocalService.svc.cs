@@ -8,8 +8,7 @@ namespace MyLocalService
 {
 	// NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "MyLocalService" in code, svc and config file together.
 	// NOTE: In order to launch WCF Test Client for testing this service, please select MyLocalService.svc or MyLocalService.svc.cs at the Solution Explorer and start debugging.
-	[ServiceContract]
-	public class MyLocalService
+	public class MyLocalService : IMyLocalService
 	{		
 		public ServiceResult<Person> GetData(int value)
 		{

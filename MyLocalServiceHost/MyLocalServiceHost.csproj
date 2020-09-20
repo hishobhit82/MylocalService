@@ -103,8 +103,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>net stop MyLocalService
-xcopy /E /Y "F:\CSharpProjects\MyLocalService\MyLocalServiceHost\bin\Debug\" "F:\HomeDeploy\MyLocalService\bin"
-net start MyLocalService</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>

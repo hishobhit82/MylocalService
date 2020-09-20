@@ -16,7 +16,7 @@ namespace MyLocalServiceHost
 
 		protected override void OnStart(string[] args)
 		{
-			string baseAddress = "http://" + Environment.MachineName + ":8080/Service";
+			string baseAddress = "http://" + Environment.MachineName + ":8081/MyLocalService";
 			svcHost = new ServiceHost(typeof(MyLocalService.MyLocalService), new Uri(baseAddress));
 			WebHttpBinding webBinding = new WebHttpBinding();
 			webBinding.ContentTypeMapper = new RawMapper();
