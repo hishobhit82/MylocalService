@@ -61,13 +61,23 @@ namespace MyWPFApp.Model
 			await Task.Run(() =>
 			{
 				MainViewModel.StatusMessage = "Getting Persons...";
-				var responseStream = HttpWebClient.SendRequest($"{GetPersonsUri}{NumberOfPersonsToFetch}", "GET", null, null);
-				var ser = new DataContractJsonSerializer(typeof(ServiceResult<Person>));
-				MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(responseStream));
-				var result = ser.ReadObject(ms) as ServiceResult<Person>;
-				Persons = result.Result.ToList();
-				MainViewModel.ProgressBarInProgress = Visibility.Hidden;
-				MainViewModel.StatusMessage = "Finished getting list of persons.";
+				string responseStream;
+				try
+				{
+					responseStream = HttpWebClient.SendRequest($"{GetPersonsUri}{NumberOfPersonsToFetch}", "GET", null, null);
+					var ser = new DataContractJsonSerializer(typeof(ServiceResult<Person>));
+					MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(responseStream));
+					var result = ser.ReadObject(ms) as ServiceResult<Person>;
+					Persons = result.Result.ToList();
+					MainViewModel.StatusMessage = "Finished getting list of persons.";
+				}
+				catch (Exception ex)
+				{
+					responseStream = "";
+					Persons = new List<Person> { };
+					MainViewModel.StatusMessage = ex.Message;
+				}								
+				MainViewModel.ProgressBarInProgress = Visibility.Hidden;				
 			});
 
 		}
